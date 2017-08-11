@@ -22,16 +22,11 @@ class Lockable(object):
         return new_function
 
 
-class IodeItemStack(object):
-        def __init__(self, typ):
-            self.typ = typ
-
-
 class IodeNode(Lockable):
     def __init__(self, typ="", amt=0, ):
         super(IodeNode, self).__init__()
         self.typ = str(typ)
-        self.amt =
+        self.amt = amt # TODO: FIX
 
 
 class Iode(Lockable):
@@ -46,8 +41,7 @@ class Iode(Lockable):
         self.from_nodes = []
         self.into_nodes = []
 
-        self.from_node_speed = config['iode_from_node_speed']
-        self.from_into_speed = config['iode_into_node_speed']
+        self.speed = config['default_iode_speed']
 
     @Lockable.lock_wrapper
     def add_from_node(self, node):
@@ -59,4 +53,4 @@ class Iode(Lockable):
 
     @Lockable.lock_wrapper
     def tick(self):
-        from_buffer =
+        from_buffer = 0 # TODO: FIX
