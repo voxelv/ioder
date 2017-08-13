@@ -12,7 +12,7 @@ def iode_int_tick(iode):
     # Get the amounts per output iode node
     output_amount_per_iode_node = []
     for iode_node in iode.output_nodes:
-        output_amount_per_iode_node.append(min(iode_node.amount, iode.speed['output']))
+        output_amount_per_iode_node.append(iode.speed['output'])
 
     # Get the maximum throughput
     max_thru_speed = int(iode.speed['throughput'])
