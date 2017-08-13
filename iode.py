@@ -19,6 +19,9 @@ class IodeNode:
         self.amount += amount_to_give
         return amount_to_give
 
+    def __repr__(self):
+        return str(self.amount)
+
 
 class Iode:
     """
@@ -40,10 +43,10 @@ class Iode:
             'output': cfg['default_iode_speed_output'],
         }
 
-    def add_from_node(self, node):
+    def add_input_node(self, node):
         self.input_nodes.append(node)
 
-    def add_into_node(self, node):
+    def add_output_node(self, node):
         self.output_nodes.append(node)
 
     def tick(self):

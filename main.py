@@ -5,13 +5,22 @@ from iode import Iode, IodeNode
 def main():
     iode = Iode()
 
-    iode.add_from_node(IodeNode(23))
-    iode.add_from_node(IodeNode(4))
+    input_nodes = []
+    for node_amount in [23, 4]:
+        node = IodeNode(node_amount)
+        input_nodes.append(node)
+        iode.add_input_node(node)
 
-    iode.add_into_node(IodeNode(4))
-    iode.add_into_node(IodeNode(0))
+    output_nodes = []
+    for node_amount in [4, 0]:
+        node = IodeNode(node_amount)
+        output_nodes.append(node)
+        iode.add_output_node(node)
 
     iode.tick()
+
+    print "Expected: [18, 0], [9, 5]"
+    print "Actual:   {}, {}".format(input_nodes, output_nodes)
 
 if __name__ == "__main__":
     main()
