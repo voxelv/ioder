@@ -5,27 +5,25 @@ from algorithms import iode_int_tick
 
 
 class IodeNode:
-    def __init__(self):
+    def __init__(self, amount=0):
         self.stack = None
+        self.amount = amount
 
-    def set_stack(self, stack):
-        self.stack = stack
+    def take(self, amount):
+        amount_to_take = min(amount, self.amount)
+        self.amount -= amount_to_take
+        return amount_to_take
 
-    def take(self, amt):
-        amt_to_take = min(amt, self.stack.amt)
-        self.stack.amt -= amt_to_take
-        return amt_to_take
-
-    def give(self, amt):
-        amt_to_give = amt
-        self.stack.amt += amt_to_give
-        return amt_to_give
+    def give(self, amount):
+        amount_to_give = amount
+        self.amount += amount_to_give
+        return amount_to_give
 
 
 class Iode:
     """
     An Iode is a connection object. 
-    It connects 'from' nodes to 'into' nodes and knows how to distribute the flow.
+    It connects 'input' nodes to 'output' nodes and knows how to distribute the flow.
     """
 
     def __init__(self, typ=""):
@@ -33,20 +31,20 @@ class Iode:
         self.typ = str(typ)
 
         # Node lists
-        self.from_nodes = []
-        self.into_nodes = []
+        self.input_nodes = []
+        self.output_nodes = []
 
         self.speed = {
-            'from': cfg['default_iode_speed_from'],
-            'thru': cfg['default_iode_speed_thru'],
-            'into': cfg['default_iode_speed_into'],
+            'input': cfg['default_iode_speed_input'],
+            'throughput': cfg['default_iode_speed_throughput'],
+            'output': cfg['default_iode_speed_output'],
         }
 
     def add_from_node(self, node):
-        self.from_nodes.append(node)
+        self.input_nodes.append(node)
 
     def add_into_node(self, node):
-        self.into_nodes.append(node)
+        self.output_nodes.append(node)
 
     def tick(self):
         iode_int_tick(self)
